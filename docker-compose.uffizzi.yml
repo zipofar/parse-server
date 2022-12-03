@@ -12,7 +12,7 @@ services:
         image: mongo
         volumes:
             - mongo_volume:/data/db
-            - ./data-db:/data/db
+          #  - ./data-db:/data/db
         deploy:
           resources:
             limits:
