@@ -20,6 +20,10 @@ services:
                 memory: 1000M
       networks:
             - parse_network
+      ports:
+        - "5432:5432"
+      volumes:
+        - postgres_data:/var/lib/postgresql
 
   parse:
         image: "${PARSE_SERVER_IMAGE}"
@@ -35,8 +39,10 @@ services:
         entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
         networks:
           - parse_network
+        ports:
+          - '1337:1337'
 
-  dashboard:
+  parse-dashboard:
         image: parseplatform/parse-dashboard
         environment:
         - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=true
@@ -49,6 +55,8 @@ services:
         - PARSE_DASHBOARD_USER_PASSWORD=password
         - MOUNT_PATH=/dashboard/
         command: parse-dashboard --dev
+        ports:
+        - '4040:4040'
         deploy:
           resources:
             limits:
@@ -60,3 +68,5 @@ networks:
   parse_network:
     driver: bridge
 
+volumes:
+  postgres_data:
