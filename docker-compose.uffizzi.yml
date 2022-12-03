@@ -15,7 +15,7 @@ services:
         deploy:
           resources:
             limits:
-              memory: 2000M
+              memory: 1000M
 
     parse:
         image: "${PARSE_SERVER_IMAGE}"
@@ -28,7 +28,7 @@ services:
         deploy:
           resources:
             limits:
-              memory: 2000M
+              memory: 1000M
         # entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
 
     dashboard:
