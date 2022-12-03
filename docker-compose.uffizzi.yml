@@ -11,6 +11,7 @@ services:
     mongo:
         image: mongo
         volumes:
+            - mongo_volume:/data/db
             - ./data-db:/data/db
         deploy:
           resources:
@@ -55,3 +56,6 @@ services:
 networks:
   parse_network:
     driver: bridge
+
+volumes:
+ mongo_volume:
