@@ -13,7 +13,7 @@ services:
         volumes:
             - ./data-db:/data/db
         networks:
-          - parse-network
+          - parse_network
 
     parse:
         image: "${PARSE_SERVER_IMAGE}"
