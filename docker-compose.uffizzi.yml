@@ -12,27 +12,19 @@ services:
         image: mongo
         volumes:
             - ./data-db:/data/db
-        networks:
-          - parse_network
 
     parse:
         image: "${PARSE_SERVER_IMAGE}"
-        ports:
-            - 1337:1337
         environment:
             - PARSE_SERVER_APPLICATION_ID=yourappid
             - PARSE_SERVER_MASTER_KEY=yourmasterkey
             - PARSE_SERVER_DATABASE_URI=mongodb://mongo:27017/dev
             - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
             - PARSE_SERVER_LIVE_QUERY={"classNames":["people","monitor"]}
-        entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
-        networks:
-          - parse_network
+        # entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
 
     dashboard:
         image: parseplatform/parse-dashboard
-        ports:
-            - 4040:4040
         environment:
             - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
             - PARSE_DASHBOARD_APP_ID=yourappid
@@ -42,6 +34,6 @@ services:
             - PARSE_DASHBOARD_USER_ID=user
             - PARSE_DASHBOARD_USER_PASSWORD=pass
 
-networks:
-  parse_network:
-    driver: bridge
+# networks:
+#   parse_network:
+#     driver: bridge
