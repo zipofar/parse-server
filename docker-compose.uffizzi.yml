@@ -16,7 +16,7 @@ services:
             - ./data-db:/data/db
 
     parse:
-        image: "${PARSE_IMAGE}"
+        image: "${PARSE_SERVER_IMAGE}"
         ports:
             - 1337:1337
         links:
