@@ -54,7 +54,7 @@ jobs:
       - name: Render Compose File
         run: |
           PARSE_SERVER_IMAGE=${{ needs.build-parse-server.outputs.tags }}
-          export PARSE_SERVER_ IMAGE
+          export PARSE_SERVER_IMAGE
           # Render simple template from environment variables.
           envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
