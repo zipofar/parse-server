@@ -8,44 +8,49 @@ x-uffizzi:
 
 services:
 
-    mongo:
-        image: mongo
-        volumes:
-            - mongo_volume:/data/db
-          #  - ./data-db:/data/db
-        deploy:
-          resources:
-            limits:
-              memory: 1000M
-        networks:
-          - parse_network
+  postgres:
+      image: postgres
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=postgres
+      volumes:
+        - postgres_volume
+      deploy:
+            resources:
+              limits:
+                memory: 1000M
+      networks:
+            - parse_network
 
-    parse:
+  parse:
         image: "${PARSE_SERVER_IMAGE}"
         environment:
-            - PARSE_SERVER_APPLICATION_ID=yourappid
-            - PARSE_SERVER_MASTER_KEY=yourmasterkey
-            - PARSE_SERVER_DATABASE_URI=mongodb://mongo:27017/dev
-            - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
-            - PARSE_SERVER_LIVE_QUERY={"classNames":["people","monitor"]}
+        - PARSE_SERVER_APPLICATION_ID=parse
+        - PARSE_SERVER_MASTER_KEY=parse@master123!
+        - PARSE_SERVER_DATABASE_URI=postgres://postgres:password@postgres/postgres
+        - PARSE_SERVER_MOUNT_PATH=/parse
         deploy:
           resources:
             limits:
               memory: 1000M
-       # entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
+        entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
         networks:
           - parse_network
 
-    dashboard:
+  dashboard:
         image: parseplatform/parse-dashboard
         environment:
-            - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
-            - PARSE_DASHBOARD_APP_ID=yourappid
-            - PARSE_DASHBOARD_MASTER_KEY=yourmasterkey
-            - PARSE_DASHBOARD_APP_NAME=MyApp
-            - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
-            - PARSE_DASHBOARD_USER_ID=user
-            - PARSE_DASHBOARD_USER_PASSWORD=pass
+        - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=true
+        - PARSE_DASHBOARD_COOKIE_SESSION_SECRET=AB8849B6-D725-4A75-AA73-AB7103F0363F
+        - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+        - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
+        - PARSE_DASHBOARD_APP_ID=parse
+        - PARSE_DASHBOARD_APP_NAME=MyParseApp
+        - PARSE_DASHBOARD_USER_ID=admin
+        - PARSE_DASHBOARD_USER_PASSWORD=password
+        - MOUNT_PATH=/dashboard/
+        command: parse-dashboard --dev
         deploy:
           resources:
             limits:
