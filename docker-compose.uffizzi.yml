@@ -32,7 +32,7 @@ services:
           resources:
             limits:
               memory: 1000M
-        entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
+       # entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"]
         networks:
           - parse_network
 
@@ -58,4 +58,4 @@ networks:
     driver: bridge
 
 volumes:
- mongo_volume:
+  mongo_volume:
