@@ -27,7 +27,7 @@ services:
         - PARSE_SERVER_APPLICATION_ID=parse
         - PARSE_SERVER_MASTER_KEY=parse@master123!
         - PARSE_SERVER_DATABASE_URI=postgresql://postgres:password@localhost:5432/postgres
-        - PARSE_SERVER_MOUNT_PATH=/parse
+        - PARSE_SERVER_MOUNT_PATH=/
         deploy:
           resources:
             limits:
@@ -48,7 +48,7 @@ services:
         - PARSE_DASHBOARD_USER_ID=admin
         - PARSE_DASHBOARD_USER_PASSWORD=password
         - MOUNT_PATH=/
-        command: sleep 45 && parse-dashboard --dev"
+        command: parse-dashboard --dev"
         deploy:
           resources:
             limits:
