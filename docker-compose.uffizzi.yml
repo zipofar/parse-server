@@ -48,7 +48,8 @@ services:
         - PARSE_DASHBOARD_USER_ID=admin
         - PARSE_DASHBOARD_USER_PASSWORD=password
         - MOUNT_PATH=/
-        entrypoint: ["/bin/sh", "-c", "sleep 45;  parse-dashboard --dev"]
+        entrypoint: ["/bin/sh", "-c", "sleep 45"]
+        command: parse-dashboard --dev"
         deploy:
           resources:
             limits:
