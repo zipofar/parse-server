@@ -44,7 +44,6 @@ services:
         # - PARSE_DASHBOARD_USER_ID=admin
         # - PARSE_DASHBOARD_USER_PASSWORD=password
         - MOUNT_PATH=/
-        - PORT=4040
         - PARSE_DASHBOARD_TRUST_PROXY=1
         command: parse-dashboard --dev"
         deploy:
