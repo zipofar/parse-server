@@ -27,7 +27,7 @@ services:
         - PARSE_SERVER_APPLICATION_ID=parse
         - PARSE_SERVER_MASTER_KEY=parse@master123!
         - PARSE_SERVER_DATABASE_URI=postgresql://postgres:password@localhost:5432/postgres
-        - PARSE_SERVER_MOUNT_PATH=/parse
+        - PARSE_SERVER_MOUNT_PATH=/
         deploy:
           resources:
             limits:
@@ -38,9 +38,14 @@ services:
         - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=true
         # - PARSE_DASHBOARD_COOKIE_SESSION_SECRET=AB8849B6-D725-4A75-AA73-AB7103F0363F
         - PARSE_DASHBOARD_SERVER_URL=/parse
-        - MOUNT_PATH=/dashboard
-        volumes:
-        -  ./dashboard/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+        - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
+        - PARSE_DASHBOARD_APP_ID=parse
+        - PARSE_DASHBOARD_APP_NAME=MyParseApp
+        - PARSE_DASHBOARD_USER_ID=admin
+        - PARSE_DASHBOARD_USER_PASSWORD=password
+        - MOUNT_PATH=/
+        - PORT=4040
+        - PARSE_DASHBOARD_TRUST_PROXY=1
         command: parse-dashboard --dev"
         deploy:
           resources:
