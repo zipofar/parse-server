@@ -4,14 +4,11 @@
        "serverURL": "http://localhost:1337/parse",
          "appId": "parse",
          "masterKey": "parse@master123!",
-         "appName": "MyParseApp",
-         "supportedPushLocales": ["en"]
+         "appName": "MyParseApp"
     }],
-    "iconsFolder": "icons",
     "users": [
     {
       "user":"admin",
       "pass": "password"
-    }],
-    "useEncryptedPasswords": false
+    }]
 }
