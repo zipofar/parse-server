@@ -32,10 +32,6 @@ services:
           resources:
             limits:
               memory: 1000M
-        entrypoint: ["/bin/sh", "-c", "sleep 25;  node ./bin/parse-server"]
-        ports:
-          - '1337:1337'
-
   parse-dashboard:
         image: parseplatform/parse-dashboard
         environment:
@@ -52,7 +48,7 @@ services:
         deploy:
           resources:
             limits:
-              memory: 250M
+              memory: 500M
 
   nginx:
     image: nginx:alpine
