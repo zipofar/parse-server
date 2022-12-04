@@ -52,13 +52,13 @@ services:
           resources:
             limits:
               memory: 1000M
-        volumes:
-        -  ./dashboard/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+      #  volumes:
+      #  -  ./dashboard/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
 
   nginx:
     image: nginx:alpine
     volumes:
-    - ./nginx:/etc/nginx
+      - ./nginx:/etc/nginx
 
 volumes:
   postgres_data:
