@@ -40,7 +40,7 @@ services:
         - PARSE_DASHBOARD_SERVER_URL=/parse
         - MOUNT_PATH=/dashboard
         volumes:
-        -  ./dashboard/parse-dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+        -  ./dashboard/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
         command: parse-dashboard --dev"
         deploy:
           resources:
