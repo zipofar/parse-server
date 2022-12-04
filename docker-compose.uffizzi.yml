@@ -37,7 +37,7 @@ services:
         environment:
         #- PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=true
         # - PARSE_DASHBOARD_COOKIE_SESSION_SECRET=AB8849B6-D725-4A75-AA73-AB7103F0363F
-        - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+        - PARSE_DASHBOARD_SERVER_URL=https://pr-1-deployment-8415-parse-server.app.uffizzi.com//parse
         - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
         - PARSE_DASHBOARD_APP_ID=parse
         - PARSE_DASHBOARD_APP_NAME=MyParseApp
