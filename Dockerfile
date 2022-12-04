@@ -3,6 +3,8 @@
 ############################################################
 FROM node:lts-alpine as build
 
+ARG UFFIZZI_URL
+
 RUN apk update; \
   apk add git;
 WORKDIR /tmp
