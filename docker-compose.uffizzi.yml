@@ -41,6 +41,7 @@ services:
         - PARSE_DASHBOARD_APP_NAME=MyParseApp
         - PARSE_DASHBOARD_USER_ID=admin
         - PARSE_DASHBOARD_USER_PASSWORD=password
+        - MOUNT_PATH=/
         - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
         # - PARSE_DASHBOARD_TRUST_PROXY=1
         command: parse-dashboard --dev"
@@ -48,8 +49,8 @@ services:
           resources:
             limits:
               memory: 1000M
-        volumes:
-        -  ./dashboard/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+        # volumes:
+        # -  ./dashboard/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
 
   # nginx:
   #   image: nginx:alpine
