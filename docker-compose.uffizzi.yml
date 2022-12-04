@@ -23,10 +23,6 @@ services:
 
   parse:
         image: "${PARSE_SERVER_IMAGE}"
-        build:
-          context: .
-          args:
-            - UFFIZZI_URL
         environment:
         - PARSE_SERVER_APPLICATION_ID=parse
         - PARSE_SERVER_MASTER_KEY=parse@master123!
