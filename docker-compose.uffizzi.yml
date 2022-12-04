@@ -43,7 +43,8 @@ services:
         - PARSE_DASHBOARD_APP_NAME=MyParseApp
         - PARSE_DASHBOARD_USER_ID=admin
         - PARSE_DASHBOARD_USER_PASSWORD=password
-        - MOUNT_PATH=/
+        - MOUNT_PATH=/dashboard
+        - HOST=localhost
         - PORT=4040
         - PARSE_DASHBOARD_TRUST_PROXY=1
         command: parse-dashboard --dev"
