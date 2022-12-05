@@ -24,7 +24,7 @@ services:
         - postgres_data:/var/lib/postgresql
 
   parse:
-        image: parseplatform/parse-server
+        image: "${PARSE_SERVER_IMAGE}"
         environment:
         - PARSE_SERVER_APPLICATION_ID=parse
         - PARSE_SERVER_MASTER_KEY=parse@master123!
