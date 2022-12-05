@@ -1,0 +1,14 @@
+{
+    "apps": [
+    {
+       "serverURL": "https://host.docker.internal:1337/parse",
+         "appId": "parse",
+         "masterKey": "parse@master123!",
+         "appName": "MyParseApp"
+    }],
+    "users": [
+    {
+      "user":"admin",
+      "pass": "password"
+    }]
+}
