@@ -43,12 +43,12 @@ services:
         ports:
             - 127.0.0.1:4040:4040
         environment:
-        # - PARSE_DASHBOARD_SERVER_URL=https://host.docker.internal:1337/parse
-        # - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
-        # - PARSE_DASHBOARD_APP_ID=parse
-        # - PARSE_DASHBOARD_APP_NAME=MyParseApp
-        # - PARSE_DASHBOARD_USER_ID=admin
-        # - PARSE_DASHBOARD_USER_PASSWORD=password
+        - PARSE_DASHBOARD_SERVER_URL=https://host.docker.internal:1337/parse
+        - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
+        - PARSE_DASHBOARD_APP_ID=parse
+        - PARSE_DASHBOARD_APP_NAME=MyParseApp
+        - PARSE_DASHBOARD_USER_ID=admin
+        - PARSE_DASHBOARD_USER_PASSWORD=password
         - MOUNT_PATH=/
         # - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
         - PARSE_DASHBOARD_TRUST_PROXY=1
