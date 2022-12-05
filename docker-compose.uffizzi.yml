@@ -24,7 +24,7 @@ services:
         - postgres_data:/var/lib/postgresql
 
   parse:
-        image: parseplatform/parse-server:latest
+        image: parseplatform/parse-server
         environment:
         - PARSE_SERVER_APPLICATION_ID=parse
         - PARSE_SERVER_MASTER_KEY=parse@master123!
@@ -45,12 +45,12 @@ services:
         ports:
             - "4040:4040"
         environment:
-        # - PARSE_DASHBOARD_SERVER_URL=https://pr-1-deployment-8459-parse-server.app.uffizzi.com/parse
-        # - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
-        # - PARSE_DASHBOARD_APP_ID=parse
-        # - PARSE_DASHBOARD_APP_NAME=MyParseApp
-        # - PARSE_DASHBOARD_USER_ID=admin
-        # - PARSE_DASHBOARD_USER_PASSWORD=password
+        - PARSE_DASHBOARD_SERVER_URL=https://pr-1-deployment-8459-parse-server.app.uffizzi.com/parse
+        - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
+        - PARSE_DASHBOARD_APP_ID=parse
+        - PARSE_DASHBOARD_APP_NAME=MyParseApp
+        - PARSE_DASHBOARD_USER_ID=admin
+        - PARSE_DASHBOARD_USER_PASSWORD=password
         - MOUNT_PATH=/dashboard
         # - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
         - PARSE_DASHBOARD_TRUST_PROXY=1
@@ -62,8 +62,8 @@ services:
               memory: 1000M
         networks:
           parse_network:
-        volumes:
-        -  ./dashboard/parse-dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+        # volumes:
+        # -  ./dashboard/parse-dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
 
   nginx:
     image: nginx:alpine
