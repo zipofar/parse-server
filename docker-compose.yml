@@ -1,0 +1,62 @@
+version: '3'
+
+# # uffizzi integration
+# x-uffizzi:
+#   ingress:
+#     service: parse-dashboard
+#     port: 4040
+
+services:
+
+  postgres:
+      image: postgres
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=postgres
+      # deploy:
+      #       resources:
+      #         limits:
+      #           memory: 1000M
+      volumes:
+        - postgres_data:/var/lib/postgresql
+
+  parse:
+        image: parseplatform/parse-server
+        environment:
+          - PARSE_SERVER_APPLICATION_ID=parse
+          - PARSE_SERVER_MASTER_KEY=parse@master123!
+          - PARSE_SERVER_DATABASE_URI=postgresql://postgres:password@postgres:5432/postgres
+          - PARSE_SERVER_MOUNT_PATH=/parse
+        # deploy:
+        #   resources:
+        #     limits:
+        #       memory: 1000M
+        #entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server"] #sleep few seconds for postgres to come up
+  parse-dashboard:
+        image: parseplatform/parse-dashboard
+        environment:
+          - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+          - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
+          - PARSE_DASHBOARD_APP_ID=parse
+          - PARSE_DASHBOARD_APP_NAME=MyParseApp
+          - PARSE_DASHBOARD_USER_ID=admin
+          - PARSE_DASHBOARD_USER_PASSWORD=password
+          - MOUNT_PATH=/dashboard
+          - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
+        # - PARSE_DASHBOARD_TRUST_PROXY=1
+        command: "parse-dashboard --dev"
+        # deploy:
+        #   resources:
+        #     limits:
+        #       memory: 1000M
+        # volumes:
+        # -  ./dashboard/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+
+  # nginx:
+  #   image: nginx:alpine
+  #   volumes:
+  #     - ./nginx:/etc/nginx
+
+volumes:
+  postgres_data:
