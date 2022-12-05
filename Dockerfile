@@ -34,7 +34,9 @@ COPY --from=build /tmp/lib lib
 RUN mkdir -p logs && chown -R node: logs
 
 ENV PORT=1337
+
 USER node
+
 EXPOSE $PORT
 
 ENTRYPOINT ["node", "./bin/parse-server"]
