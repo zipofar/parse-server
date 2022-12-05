@@ -26,7 +26,7 @@ services:
         environment:
         - PARSE_SERVER_APPLICATION_ID=parse
         - PARSE_SERVER_MASTER_KEY=parse@master123!
-        - PARSE_SERVER_DATABASE_URI=postgresql://postgres:password@postgres:5432/postgres
+        - PARSE_SERVER_DATABASE_URI=postgresql://postgres:5432/postgres
         - PARSE_SERVER_MOUNT_PATH=/parse
         deploy:
           resources:
