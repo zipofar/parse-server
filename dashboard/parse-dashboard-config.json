@@ -1,7 +1,7 @@
 {
     "apps": [
     {
-       "serverURL": "https://host.docker.internal:1337/parse",
+       "serverURL": "https://pr-1-deployment-8459-parse-server.app.uffizzi.com/parse",
          "appId": "parse",
          "masterKey": "parse@master123!",
          "appName": "MyParseApp"
