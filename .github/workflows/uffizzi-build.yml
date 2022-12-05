@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: registry.uffizzi.com/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=5.4.0
 
