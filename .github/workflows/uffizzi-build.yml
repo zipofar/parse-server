@@ -7,6 +7,9 @@ jobs:
   build-parse-server:
     name: Build and push `Parse Server`
     runs-on: ubuntu-latest
+    env:
+      REGISTRY: docker.io
+      IMAGE_NAME: parseplatform/parse-server
     outputs:
       tags: ${{ steps.meta.outputs.tags }}
     if: ${{ github.event.action != 'closed' }}
@@ -25,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: registry.uffizzi.com/${{ env.UUID_WORKER }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=5.4.0
 
