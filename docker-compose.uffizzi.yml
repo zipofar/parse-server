@@ -58,8 +58,8 @@ services:
           resources:
             limits:
               memory: 1000M
-        volumes:
-        -  ./dashboard/parse-dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+        # volumes:
+        # -  ./dashboard/parse-dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
 
   # nginx:
   #   image: nginx:alpine
