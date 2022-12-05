@@ -43,7 +43,7 @@ services:
         ports:
             - 127.0.0.1:4040:4040
         environment:
-        - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse/
+        - PARSE_DASHBOARD_SERVER_URL=http://127.0.0.1:1337/parse/
         - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
         - PARSE_DASHBOARD_APP_ID=parse
         - PARSE_DASHBOARD_APP_NAME=MyParseApp
