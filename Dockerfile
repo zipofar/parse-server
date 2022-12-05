@@ -9,8 +9,8 @@ COPY package*.json ./
 # Copy local dependencies for CI tests
 COPY spec/dependencies spec/dependencies
 
-RUN npm ci
 COPY . .
+RUN npm ci
 RUN npm run build
 
 # Release stage
@@ -34,9 +34,7 @@ COPY --from=build /tmp/lib lib
 RUN mkdir -p logs && chown -R node: logs
 
 ENV PORT=1337
-
 USER node
-
 EXPOSE $PORT
 
 ENTRYPOINT ["node", "./bin/parse-server"]
