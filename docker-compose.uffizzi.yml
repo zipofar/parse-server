@@ -29,7 +29,7 @@ services:
         - PARSE_SERVER_APPLICATION_ID=parse
         - PARSE_SERVER_MASTER_KEY=parse@master123!
         - PARSE_SERVER_DATABASE_URI=postgresql://postgres:password@localhost:5432/postgres
-        - PARSE_SERVER_MOUNT_PATH=/parse
+        - PARSE_SERVER_MOUNT_PATH=/
         - PORT=1337
         ports:
           - '1337:1337'
@@ -41,9 +41,9 @@ services:
   dashboard:
         image: parseplatform/parse-dashboard:latest
         ports:
-            - 127.0.0.1:4040:4040
+            - "4040:4040"
         environment:
-        - PARSE_DASHBOARD_SERVER_URL=https://192.168.99.100:1337/parse
+        - PARSE_DASHBOARD_SERVER_URL=http//localhost:1337/
         - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
         - PARSE_DASHBOARD_APP_ID=parse
         - PARSE_DASHBOARD_APP_NAME=MyParseApp
