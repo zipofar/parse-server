@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3'
 
 # uffizzi integration
 x-uffizzi:
@@ -40,7 +40,7 @@ services:
         entrypoint: /bin/sh
         command:
           - "-c"
-          - "echo 'UFFIZZI_URL: ' $UFFIZZI_URL"
+          - "echo $$UFFIZZI_URL"
         #entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server; export UFFIZZI_URL"] #sleep few seconds for postgres to come up
   dashboard:
         image: parseplatform/parse-dashboard:latest
