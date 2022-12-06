@@ -37,8 +37,6 @@ services:
           resources:
             limits:
               memory: 1000M
-        networks:
-          parse_network:
         entrypoint: ["/bin/sh", "-c"]
         command: echo "UFFIZZI_URL:" $UFFIZZI_URL
         #entrypoint: ["/bin/sh", "-c", "sleep 5;  node ./bin/parse-server; export UFFIZZI_URL"] #sleep few seconds for postgres to come up
@@ -47,7 +45,7 @@ services:
         ports:
             - "4040:4040"
         environment:
-        - PARSE_DASHBOARD_SERVER_URL=localhost:1337/parse
+        - PARSE_DASHBOARD_SERVER_URL=/parse
         - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
         - PARSE_DASHBOARD_APP_ID=parse
         - PARSE_DASHBOARD_APP_NAME=MyParseApp
@@ -62,8 +60,6 @@ services:
           resources:
             limits:
               memory: 1000M
-        networks:
-          parse_network:
         # volumes:
         # -  ./dashboard/parse-dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
 
@@ -75,6 +71,3 @@ services:
 volumes:
   postgres_data:
 
-networks:
-  parse_network:
-    driver: bridge

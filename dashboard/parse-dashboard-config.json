@@ -1,7 +1,7 @@
 {
     "apps": [
     {
-       "serverURL": "https://pr-1-deployment-8459-parse-server.app.uffizzi.com/parse",
+       "serverURL": "/parse",
          "appId": "parse",
          "masterKey": "parse@master123!",
          "appName": "MyParseApp"
