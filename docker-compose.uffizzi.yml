@@ -47,7 +47,7 @@ services:
         ports:
             - "4040:4040"
         environment:
-        - PARSE_DASHBOARD_SERVER_URL=https://pr-1-deployment-8481-parse-server.app.uffizzi.com/parse
+        - PARSE_DASHBOARD_SERVER_URL=localhost:1337/parse
         - PARSE_DASHBOARD_MASTER_KEY=parse@master123!
         - PARSE_DASHBOARD_APP_ID=parse
         - PARSE_DASHBOARD_APP_NAME=MyParseApp
