@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-parse-server:
-    name: Build and push `Parse Server`
+    name: Build and push `Parse-Server`
     runs-on: ubuntu-latest
     outputs:
       tags: ${{ steps.meta.outputs.tags }}
