@@ -7,59 +7,18 @@ jobs:
   build-parse-server:
     name: Build and push `Parse Server`
     runs-on: ubuntu-latest
-    env:
-      REGISTRY: docker.io
-      IMAGE_NAME: parse-server
     outputs:
-      tags: ${{ steps.meta.outputs.tags }}
+      compose-file-cache-key: ${{env.HASH}}
     if: ${{ github.event.action != 'closed' }}
-    steps:
-      - name: Checkout git repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Generate UUID image name
-        id: uuid
-        run: echo "UUID_WORKER=$(uuidgen)" >> $GITHUB_ENV
-
-      - name: Docker metadata
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: registry.uffizzi.com/${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=5.4.0
-
-      - name: Build and Push Image to registry.uffizzi.com - Uffizzi's ephemeral Registry
-        uses: docker/build-push-action@v3
-        with:
-          context: ./
-          file: Dockerfile
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          push: true
-          cache-from: type=gha
-          cache-to: type=gha, mode=max
-
-  render-compose-file:
-    name: Render Docker Compose File
-    # Pass output of this workflow to another triggered by `workflow_run` event.
-    runs-on: ubuntu-latest
-    needs:
-      - build-parse-server
-    outputs:
-      compose-file-cache-key: ${{ steps.hash.outputs.hash }}
     steps:
       - name: Checkout git repo
         uses: actions/checkout@v3
       - name: Render Compose File
         run: |
-          PARSE_SERVER_IMAGE=${{ needs.build-parse-server.outputs.tags }}
+          PARSE_SERVER_IMAGE=parse-community/parse-server:5.4.0
           export PARSE_SERVER_IMAGE
           # Render simple template from environment variables.
-          envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
+          envsubst < .github/uffizzi/docker-compose.uffizzi.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
       - name: Upload Rendered Compose File as Artifact
         uses: actions/upload-artifact@v3
@@ -68,10 +27,9 @@ jobs:
           path: docker-compose.rendered.yml
           retention-days: 2
       - name: Serialize PR Event to File
-        run: |
+        run:  |
           cat << EOF > event.json
           ${{ toJSON(github.event) }}
-
           EOF
       - name: Upload PR Event as Artifact
         uses: actions/upload-artifact@v3
