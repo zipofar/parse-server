@@ -1,58 +1,58 @@
-name: Build PR Image
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
+# name: Build PR Image
+# on:
+#   pull_request:
+#     types: [opened, synchronize, reopened, closed]
 
-jobs:
-  build-parse-server:
-    name: Build and push `Parse Server`
-    runs-on: ubuntu-latest
-    outputs:
-      compose-file-cache-key: ${{env.HASH}}
-    if: ${{ github.event.action != 'closed' }}
-    steps:
-      - name: Checkout git repo
-        uses: actions/checkout@v3
-      - name: Render Compose File
-        run: |
-          PARSE_SERVER_IMAGE=parse-community/parse-server:5.4.0
-          export PARSE_SERVER_IMAGE
-          # Render simple template from environment variables.
-          envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
-          cat docker-compose.rendered.yml
-      - name: Upload Rendered Compose File as Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: preview-spec
-          path: docker-compose.rendered.yml
-          retention-days: 2
-      - name: Serialize PR Event to File
-        run:  |
-          cat << EOF > event.json
-          ${{ toJSON(github.event) }}
-          EOF
-      - name: Upload PR Event as Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: preview-spec
-          path: event.json
-          retention-days: 2
+# jobs:
+#   build-parse-server:
+#     name: Build and push `Parse Server`
+#     runs-on: ubuntu-latest
+#     outputs:
+#       compose-file-cache-key: ${{env.HASH}}
+#     if: ${{ github.event.action != 'closed' }}
+#     steps:
+#       - name: Checkout git repo
+#         uses: actions/checkout@v3
+#       - name: Render Compose File
+#         run: |
+#           PARSE_SERVER_IMAGE=parse-community/parse-server:5.4.0
+#           export PARSE_SERVER_IMAGE
+#           # Render simple template from environment variables.
+#           envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
+#           cat docker-compose.rendered.yml
+#       - name: Upload Rendered Compose File as Artifact
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: preview-spec
+#           path: docker-compose.rendered.yml
+#           retention-days: 2
+#       - name: Serialize PR Event to File
+#         run:  |
+#           cat << EOF > event.json
+#           ${{ toJSON(github.event) }}
+#           EOF
+#       - name: Upload PR Event as Artifact
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: preview-spec
+#           path: event.json
+#           retention-days: 2
 
-  delete-preview:
-    name: Call for Preview Deletion
-    runs-on: ubuntu-latest
-    if: ${{ github.event.action == 'closed' }}
-    steps:
-      # If this PR is closing, we will not render a compose file nor pass it to the next workflow.
-      - name: Serialize PR Event to File
-        run: |
-          cat << EOF > event.json
-          ${{ toJSON(github.event) }}
+#   delete-preview:
+#     name: Call for Preview Deletion
+#     runs-on: ubuntu-latest
+#     if: ${{ github.event.action == 'closed' }}
+#     steps:
+#       # If this PR is closing, we will not render a compose file nor pass it to the next workflow.
+#       - name: Serialize PR Event to File
+#         run: |
+#           cat << EOF > event.json
+#           ${{ toJSON(github.event) }}
 
-          EOF
-      - name: Upload PR Event as Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: preview-spec
-          path: event.json
-          retention-days: 2
+#           EOF
+#       - name: Upload PR Event as Artifact
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: preview-spec
+#           path: event.json
+#           retention-days: 2
