@@ -56,6 +56,7 @@ jobs:
           PARSE_SERVER_IMAGE=${{ needs.build-parse-server.outputs.tags }}
           export PARSE_SERVER_IMAGE
           # Render simple template from environment variables.
+          export UFFIZZI_URL=\$UFFIZZI_URL
           envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
       - name: Upload Rendered Compose File as Artifact
