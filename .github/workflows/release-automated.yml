@@ -1,4 +1,4 @@
-name: release-automated
+name: Build PR Image
 on:
   # push:
     # branches: [ release, alpha, beta, next-major, 'release-[0-9]+.x.x' ]
@@ -138,34 +138,3 @@ jobs:
           name: preview-spec
           path: event.json
           retention-days: 2
-
-  docs:
-    needs: release
-    if: needs.release.outputs.current_tag != '' && github.ref == 'refs/heads/release'
-    runs-on: ubuntu-18.04
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 18.1.0
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-              ${{ runner.os }}-node-
-      - name: Generate Docs
-        run: |
-          echo $SOURCE_TAG
-          npm ci
-          ./release_docs.sh
-        env:
-          SOURCE_TAG: ${{ needs.release.outputs.current_tag }}
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.7.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
